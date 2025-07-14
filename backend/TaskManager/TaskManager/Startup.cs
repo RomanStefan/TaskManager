@@ -8,8 +8,13 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using TaskManager.Interfaces;
+using TaskManager.Repositories;
+using TaskManager.Services;
+using Microsoft.Data.SqlClient;
 
 namespace TaskManager
 {
@@ -26,6 +31,13 @@ namespace TaskManager
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddTransient<IDbConnection>(sp =>
+                new SqlConnection(Configuration.GetConnectionString("DefaultConnection")));
+
+            // Register repository and service
+            services.AddScoped<ITaskRepository, TaskRepository>();
+            services.AddScoped<ITaskService, TaskService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

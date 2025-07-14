@@ -56,3 +56,14 @@ nunit-*.xml
 *.v2
 *.suo
 *.vsidx
+/backend/TaskManager/.vs/TaskManager/copilot-chat/a3c275df/sessions/02dd7b9d-e2e7-47d2-83e5-bb6b15582310
+/backend/TaskManager/.vs/TaskManager/CopilotIndices/17.14.827.52834/CodeChunks.db
+/backend/TaskManager/.vs/TaskManager/CopilotIndices/17.14.827.52834/CodeChunks.db-shm
+/backend/TaskManager/.vs/TaskManager/CopilotIndices/17.14.827.52834/CodeChunks.db-wal
+/backend/TaskManager/.vs/TaskManager/CopilotIndices/17.14.827.52834/SemanticSymbols.db
+/backend/TaskManager/.vs/TaskManager/CopilotIndices/17.14.827.52834/SemanticSymbols.db-shm
+/backend/TaskManager/.vs/TaskManager/CopilotIndices/17.14.827.52834/SemanticSymbols.db-wal
+/backend/TaskManager/.vs/TaskManager/config/applicationhost.config
+/backend/TaskManager/.vs/TaskManager/v17/DocumentLayout.backup.json
+/backend/TaskManager/.vs/TaskManager/v17/DocumentLayout.json
+/backend/TaskManager/TaskManager/TaskManager.csproj.user
