@@ -13,8 +13,9 @@ export interface TaskItem {
 interface TaskContextType {
   tasks: TaskItem[];
   fetchTasks: () => void;
-createTask: (title: string, description: string, priority: number) => void;
+  createTask: (title: string, description: string, priority: number) => void;
   deleteTask: (id: number) => void;
+  completeTask: (id: number) => void;
 }
 
 export const TaskContext = createContext<TaskContextType | undefined>(undefined);
@@ -76,8 +77,23 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
       console.error("Failed to delete task:", error);
     }
   };
+
+    const completeTask = async (id: number) => {
+    try {
+      const response = await fetch(`https://localhost:44365/tasks/CompleteTask?id=${id}`, {
+        method: "PUT"
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      await fetchTasks();
+    } catch (error) {
+      console.error("Failed to Complete task:", error);
+    }
+  };
+
   return (
-    <TaskContext.Provider value={{ tasks, fetchTasks, createTask, deleteTask }}>
+      <TaskContext.Provider value={{ tasks, fetchTasks, createTask, deleteTask, completeTask }}>
       {children}
     </TaskContext.Provider>
   );

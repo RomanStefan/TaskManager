@@ -74,5 +74,22 @@ namespace TaskManager.Controllers
                 return StatusCode(500, "An error occurred while deleting the task.");
             }
         }
+
+        [HttpPut("CompleteTask")]
+        public async Task<IActionResult> CompleteTask([FromQuery] int id)
+        {
+            try
+            {
+                var completed = await _taskService.CompleteTaskAsync(id);
+                if (!completed)
+                    return NotFound($"Task with Id {id} not found.");
+                return Ok("Task completed successfully");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error completing task");
+                return StatusCode(500, "An error occurred while completing the task.");
+            }
+        }
     }
 }

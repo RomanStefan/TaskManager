@@ -39,5 +39,10 @@ namespace TaskManager.Services
         {
             return await _taskRepository.DeleteAsync(id);
         }
+
+        public async Task<bool> CompleteTaskAsync(int id)
+        {
+            return await _taskRepository.CompleteAsync(id);
+        }
     }
 }

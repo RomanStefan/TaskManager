@@ -9,5 +9,6 @@ namespace TaskManager.Interfaces
         Task<IEnumerable<TaskItem>> GetAllAsync();
         Task<TaskItem> CreateTaskAsync(TaskItem task);
         Task<bool> DeleteAsync(int id);
+        Task<bool> CompleteAsync(int id);
     }
 }

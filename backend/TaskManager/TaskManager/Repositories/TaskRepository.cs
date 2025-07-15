@@ -49,5 +49,15 @@ namespace TaskManager.Repositories
             var affectedRows = await _connection.ExecuteAsync(deleteQuery, new { Id = id });
             return affectedRows > 0;
         }
+
+        public async Task<bool> CompleteAsync(int id)
+        {
+            const string query = @"
+                UPDATE Tasks
+                SET IsCompleted = 1, CompletedAt = GETUTCDATE()
+                WHERE Id = @Id";
+            var affectedRows = await _connection.ExecuteAsync(query, new { Id = id });
+            return affectedRows > 0;
+        }
     }
 }

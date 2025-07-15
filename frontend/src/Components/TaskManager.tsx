@@ -2,6 +2,7 @@
 import React, { useContext, useState } from 'react';
 import { TaskContext } from '../Context/TasksContext';
 import CreateTaskModal from './CreateTaskModal';
+import Toast from './Toast';
 
 
 const TaskManager: React.FC = () => {
@@ -13,7 +14,7 @@ const TaskManager: React.FC = () => {
     return <div>Loading...</div>;
   }
 
-  const { tasks, deleteTask } = context;
+    const { tasks, deleteTask, completeTask } = context;
 
   const handleCreateTask = (title: string, description: string, priority: number) => {
     setToast('Task created!');
@@ -25,6 +26,12 @@ const TaskManager: React.FC = () => {
       setToast('Task deleted successfully');
     }
   };
+
+    const handleCompleteTask = async (id: number, title: string) => {
+      if (window.confirm('Are you sure you want to complete the task: ' + title + '?')) {
+      await completeTask(id);
+          setToast('Task marked as completed');
+    }
   };
 
   return (
@@ -51,6 +58,14 @@ const TaskManager: React.FC = () => {
             <p><strong>Completed At:</strong> {task.completedAt ? new Date(task.completedAt).toLocaleString() : 'N/A'}</p>
             <p><strong>Priority:</strong> {task.priority}</p>
             <button style={{ background: '#e74c3c', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '4px', cursor: 'pointer', marginRight: '8px' }} onClick={() => handleDeleteTask(task.id, task.title)}>Delete</button>
+            {!task.isCompleted && (
+              <button
+                style={{ background: '#2ecc40', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '4px', cursor: 'pointer' }}
+                onClick={() => handleCompleteTask(task.id, task.title)}
+              >
+                Complete
+              </button>
+            )}
           </div>
         ))}
       </div>
