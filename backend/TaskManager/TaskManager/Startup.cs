@@ -38,6 +38,15 @@ namespace TaskManager
             // Register repository and service
             services.AddScoped<ITaskRepository, TaskRepository>();
             services.AddScoped<ITaskService, TaskService>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontend",
+                    builder => builder
+                        .WithOrigins("http://localhost:3000")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +60,8 @@ namespace TaskManager
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("AllowFrontend");
 
             app.UseAuthorization();
 

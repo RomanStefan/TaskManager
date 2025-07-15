@@ -23,7 +23,7 @@ namespace TaskManager.Repositories
             const string query = @"
                 SELECT Id, Title, Description, IsCompleted, CreatedAt, CompletedAt, Priority 
                 FROM Tasks 
-                ORDER BY Priority DESC, CreatedAt DESC"
+                ORDER BY Priority ASC, CreatedAt DESC"
             ;
 
 
