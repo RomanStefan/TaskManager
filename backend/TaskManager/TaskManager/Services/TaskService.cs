@@ -21,5 +21,18 @@ namespace TaskManager.Services
             var tasks = await _taskRepository.GetAllAsync();
             return tasks;
         }
+
+        public async Task<TaskItem> CreateTaskAsync(CreateTaskDto newTask)
+        {
+            var task = new TaskItem
+            {
+                Title = newTask.Title,
+                Description = newTask.Description,
+                Priority = newTask.Priority,
+                CreatedAt = DateTime.UtcNow,
+                IsCompleted = false
+            };
+            return await _taskRepository.CreateTaskAsync(task);
+        }
     }
 }

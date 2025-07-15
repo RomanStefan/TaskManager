@@ -31,5 +31,16 @@ namespace TaskManager.Repositories
 
             return taskItemList;
         }
+
+        public async Task<TaskItem> CreateTaskAsync(TaskItem task)
+        {
+            const string insertQuery = @"
+                INSERT INTO Tasks (Title, Description, IsCompleted, CreatedAt, Priority)
+                VALUES (@Title, @Description, @IsCompleted, @CreatedAt, @Priority);
+                SELECT CAST(SCOPE_IDENTITY() as int);";
+            var id = await _connection.ExecuteScalarAsync<int>(insertQuery, task);
+            task.Id = id;
+            return task;
+        }
     }
 }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TaskManager.DTOs;
 using TaskManager.Interfaces;
 using TaskManager.Models;
 
@@ -34,6 +35,26 @@ namespace TaskManager.Controllers
             {
                 _logger.LogError(ex, "Error retrieving tasks");
                 return StatusCode(500, "An error occurred while retrieving tasks.");
+            }
+        }
+
+        [HttpPost("CreateTask")]
+        public async Task<ActionResult<TaskItem>> CreateTask([FromBody] CreateTaskDto newTask)
+        {
+            if (string.IsNullOrWhiteSpace(newTask.Title))
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var createdTask = await _taskService.CreateTaskAsync(newTask);
+                return Ok(createdTask);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error creating task");
+                return StatusCode(500, "An error occurred while creating the task.");
             }
         }
     }

@@ -8,5 +8,6 @@ namespace TaskManager.Interfaces
     public interface ITaskService
     {
         Task<IEnumerable<TaskItem>> GetAllTasksAsync();
+        Task<TaskItem> CreateTaskAsync(CreateTaskDto newTask);
     }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { TaskProvider } from './Context/TasksContext';
-import TasksTable from './Components/Table';
+import TaskManager from './Components/TaskManager';
 
 
 const App: React.FC = () => {
@@ -8,7 +8,7 @@ const App: React.FC = () => {
     <TaskProvider>
       <div className="App">
         <h1>Task List</h1>
-        <TasksTable />
+        <TaskManager />
       </div>
     </TaskProvider>
   );

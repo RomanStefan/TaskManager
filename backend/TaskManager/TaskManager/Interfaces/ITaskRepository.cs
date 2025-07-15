@@ -7,5 +7,6 @@ namespace TaskManager.Interfaces
     public interface ITaskRepository
     {
         Task<IEnumerable<TaskItem>> GetAllAsync();
+        Task<TaskItem> CreateTaskAsync(TaskItem task);
     }
 }

@@ -13,6 +13,7 @@ export interface TaskItem {
 interface TaskContextType {
   tasks: TaskItem[];
   fetchTasks: () => void;
+createTask: (title: string, description: string, priority: number) => void;
 }
 
 export const TaskContext = createContext<TaskContextType | undefined>(undefined);
@@ -42,8 +43,26 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
     fetchTasks();
   }, []);
 
+  const createTask = async (title: string, description: string, priority: number) => {
+    try {
+      const response = await fetch("https://localhost:44365/tasks/CreateTask", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title, description, priority }),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      await fetchTasks();
+    } catch (error) {
+      console.error("Failed to create task:", error);
+    }
+  };
+
   return (
-    <TaskContext.Provider value={{ tasks, fetchTasks }}>
+    <TaskContext.Provider value={{ tasks, fetchTasks, createTask }}>
       {children}
     </TaskContext.Provider>
   );
