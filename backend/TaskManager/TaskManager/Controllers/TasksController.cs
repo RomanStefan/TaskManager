@@ -57,5 +57,22 @@ namespace TaskManager.Controllers
                 return StatusCode(500, "An error occurred while creating the task.");
             }
         }
+
+        [HttpDelete("DeleteTask")]
+        public async Task<IActionResult> DeleteTask([FromQuery] int id)
+        {
+            try
+            {
+                var deleted = await _taskService.DeleteTaskAsync(id);
+                if (!deleted)
+                    return NotFound($"Task with Id {id} not found.");
+                return Ok("Task deleted successfully");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error deleting task");
+                return StatusCode(500, "An error occurred while deleting the task.");
+            }
+        }
     }
 }

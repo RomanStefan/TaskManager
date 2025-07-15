@@ -42,5 +42,12 @@ namespace TaskManager.Repositories
             task.Id = id;
             return task;
         }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            const string deleteQuery = "DELETE FROM Tasks WHERE Id = @Id";
+            var affectedRows = await _connection.ExecuteAsync(deleteQuery, new { Id = id });
+            return affectedRows > 0;
+        }
     }
 }

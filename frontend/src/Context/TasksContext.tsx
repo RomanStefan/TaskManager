@@ -14,6 +14,7 @@ interface TaskContextType {
   tasks: TaskItem[];
   fetchTasks: () => void;
 createTask: (title: string, description: string, priority: number) => void;
+  deleteTask: (id: number) => void;
 }
 
 export const TaskContext = createContext<TaskContextType | undefined>(undefined);
@@ -43,6 +44,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
     fetchTasks();
   }, []);
 
+
   const createTask = async (title: string, description: string, priority: number) => {
     try {
       const response = await fetch("https://localhost:44365/tasks/CreateTask", {
@@ -61,8 +63,21 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
     }
   };
 
+  const deleteTask = async (id: number) => {
+    try {
+      const response = await fetch(`https://localhost:44365/tasks/DeleteTask?id=${id}`, {
+        method: "DELETE"
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      await fetchTasks();
+    } catch (error) {
+      console.error("Failed to delete task:", error);
+    }
+  };
   return (
-    <TaskContext.Provider value={{ tasks, fetchTasks, createTask }}>
+    <TaskContext.Provider value={{ tasks, fetchTasks, createTask, deleteTask }}>
       {children}
     </TaskContext.Provider>
   );

@@ -7,16 +7,24 @@ import CreateTaskModal from './CreateTaskModal';
 const TaskManager: React.FC = () => {
   const context = useContext(TaskContext);
   const [modalOpen, setModalOpen] = useState(false);
+  const [toast, setToast] = useState<string | null>(null);
 
   if (!context) {
     return <div>Loading...</div>;
   }
 
-  const { tasks } = context;
+  const { tasks, deleteTask } = context;
 
-  const handleCreateTask = (name: string, description: string, priority: number) => {
-    // TODO: Implement task creation logic here
-    alert(`Task created! Name: ${name}, Description: ${description}`);
+  const handleCreateTask = (title: string, description: string, priority: number) => {
+    setToast('Task created!');
+  };
+
+  const handleDeleteTask = async (id: number, title: string) => {
+    if (window.confirm('Are you sure you want to delete: ' + title + '?')) {
+      await deleteTask(id);
+      setToast('Task deleted successfully');
+    }
+  };
   };
 
   return (
@@ -42,10 +50,11 @@ const TaskManager: React.FC = () => {
             <p><strong>Created At:</strong> {new Date(task.createdAt).toLocaleString()}</p>
             <p><strong>Completed At:</strong> {task.completedAt ? new Date(task.completedAt).toLocaleString() : 'N/A'}</p>
             <p><strong>Priority:</strong> {task.priority}</p>
-            <button style={{ background: '#e74c3c', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '4px', cursor: 'pointer' }} onClick={() => alert(`Delete task ${task.id}`)}>Delete</button>
+            <button style={{ background: '#e74c3c', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '4px', cursor: 'pointer', marginRight: '8px' }} onClick={() => handleDeleteTask(task.id, task.title)}>Delete</button>
           </div>
         ))}
       </div>
+      {toast && <Toast message={toast} onClose={() => setToast(null)} />}
     </div>
   );
 };
