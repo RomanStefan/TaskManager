@@ -67,3 +67,5 @@ nunit-*.xml
 /backend/TaskManager/.vs/TaskManager/v17/DocumentLayout.backup.json
 /backend/TaskManager/.vs/TaskManager/v17/DocumentLayout.json
 /backend/TaskManager/TaskManager/TaskManager.csproj.user
+/backend/TaskManager/.vs/TaskManager/v17/TestStore/0/000.testlog
+/backend/TaskManager/.vs/TaskManager/v17/TestStore/0/testlog.manifest

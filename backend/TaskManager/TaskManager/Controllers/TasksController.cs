@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using TaskManager.DTOs;
@@ -43,7 +44,7 @@ namespace TaskManager.Controllers
         {
             if (string.IsNullOrWhiteSpace(newTask.Title))
             {
-                return BadRequest(ModelState);
+                return BadRequest("Invalid title. It must be populated!");
             }
 
             try
@@ -61,6 +62,11 @@ namespace TaskManager.Controllers
         [HttpDelete("DeleteTask")]
         public async Task<IActionResult> DeleteTask([FromQuery] int id)
         {
+            if (id <= 0)
+            {
+                return BadRequest("Invalid task id. Id must be a positive integer.");
+            }
+
             try
             {
                 var deleted = await _taskService.DeleteTaskAsync(id);
@@ -78,6 +84,11 @@ namespace TaskManager.Controllers
         [HttpPut("CompleteTask")]
         public async Task<IActionResult> CompleteTask([FromQuery] int id)
         {
+            if (id <= 0)
+            {
+                return BadRequest("Invalid task id. Id must be a positive integer.");
+            }
+
             try
             {
                 var completed = await _taskService.CompleteTaskAsync(id);

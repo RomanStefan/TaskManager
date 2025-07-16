@@ -7,7 +7,7 @@ const App: React.FC = () => {
   return (
     <TaskProvider>
       <div className="App">
-        <h1>Task List</h1>
+        <h1 style={{marginLeft:'20px'}}>Task List</h1>
         <TaskManager />
       </div>
     </TaskProvider>

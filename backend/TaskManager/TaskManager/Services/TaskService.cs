@@ -24,6 +24,11 @@ namespace TaskManager.Services
 
         public async Task<TaskItem> CreateTaskAsync(CreateTaskDto newTask)
         {
+            if(newTask == null)
+            {
+                throw new ArgumentNullException("New task cannot be null");
+            }
+
             var task = new TaskItem
             {
                 Title = newTask.Title,
@@ -37,11 +42,21 @@ namespace TaskManager.Services
 
         public async Task<bool> DeleteTaskAsync(int id)
         {
+            if (id <= 0)
+            {
+                throw new ArgumentException("Invalid task id. Id must be a positive integer.");
+            }
+
             return await _taskRepository.DeleteAsync(id);
         }
 
         public async Task<bool> CompleteTaskAsync(int id)
         {
+            if (id <= 0)
+            {
+                throw new ArgumentException("Invalid task id. Id must be a positive integer.");
+            }
+
             return await _taskRepository.CompleteAsync(id);
         }
     }

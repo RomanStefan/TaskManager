@@ -35,7 +35,7 @@ const TaskManager: React.FC = () => {
   };
 
   return (
-    <div>
+    <div style={ {marginLeft: '20px'}}>
       <h2>Tasks</h2>
       <button
         style={{ background: '#47e73cff', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '4px', cursor: 'pointer', marginBottom: '8px' }}
@@ -50,7 +50,7 @@ const TaskManager: React.FC = () => {
       />
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
         {tasks.map((task, index) => (
-          <div key={task.id ?? index} style={{ border: '1px solid #ccc', borderRadius: '8px', padding: '16px', minWidth: '250px', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+          <div key={task.id ?? index} style={{ border: '1px solid #ccc', borderRadius: '8px', padding: '16px', width: '300px', maxWidth: '300px', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
             <h3>{task.title}</h3>
             <p><strong>Description:</strong> {task.description || 'N/A'}</p>
             <p><strong>Status:</strong> {task.isCompleted ? 'Completed' : 'Pending'}</p>
